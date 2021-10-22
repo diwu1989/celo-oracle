@@ -4,9 +4,9 @@ import { BaseExchangeAdapter, ExchangeAdapter, ExchangeDataType, Ticker, Trade }
 export class NovaDaxAdapter extends BaseExchangeAdapter implements ExchangeAdapter {
   baseApiUrl = 'https://api.novadax.com/v1/market'
   readonly _exchangeName = Exchange.NOVADAX
-  // Cloudflare Inc ECC CA-3
+  // Amazon root CA
   readonly _certFingerprint256 =
-    '3A:BB:E6:3D:AF:75:6C:50:16:B6:B8:5F:52:01:5F:D8:E8:AC:BE:27:7C:50:87:B1:27:A6:05:63:A8:41:ED:8A' // TODO check this
+    '0B:BF:91:35:CE:4C:9B:16:FF:39:0D:DF:A2:00:F2:12:EB:AF:08:FA:65:A1:4F:DF:BD:E1:C5:E8:6E:00:68:2E'
 
   private static readonly tokenSymbolMap = NovaDaxAdapter.standardTokenSymbolMap
 
