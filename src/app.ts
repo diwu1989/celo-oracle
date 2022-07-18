@@ -231,7 +231,13 @@ export class OracleApplication {
       case WalletType.PRIVATE_KEY:
         kit = newKit(httpRpcProviderUrl)
         if (!this.config.devMode) {
-          const privateKey = this.getPrivateKeyFromPath(privateKeyPath!)
+          let privateKey: string
+          if (process.env.PRIVATE_KEY) {
+            // private key exists in the environ
+            privateKey = process.env.PRIVATE_KEY
+          } else {
+            privateKey = this.getPrivateKeyFromPath(privateKeyPath!)
+          }
           kit.addAccount(privateKey)
           this.config.address = privateKeyToAddress(privateKey)
         } else {
