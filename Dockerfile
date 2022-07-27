@@ -47,4 +47,4 @@ RUN ["chmod", "+x", "/celo-oracle/readinessProbe.sh"]
 
 USER 1000:1000
 
-CMD yarn start
+CMD node lib/index.js
