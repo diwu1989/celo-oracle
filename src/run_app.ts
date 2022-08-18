@@ -26,6 +26,7 @@ export const applicationConfigEnvVars: EnvVarMap<OracleApplicationConfig> = {
   azureHsmInitMaxRetryBackoffMs: EnvVar.AZURE_HSM_INIT_MAX_RETRY_BACKOFF_MS,
   azureHsmInitTryCount: EnvVar.AZURE_HSM_INIT_TRY_COUNT,
   azureKeyVaultName: EnvVar.AZURE_KEY_VAULT_NAME,
+  gcpSecretName: EnvVar.GCP_SECRET_NAME,
   currencyPair: EnvVar.CURRENCY_PAIR,
   devMode: EnvVar.DEVMODE,
   httpRpcProviderUrl: EnvVar.HTTP_RPC_PROVIDER_URL,

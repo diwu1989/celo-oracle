@@ -92,6 +92,7 @@ export enum WalletType {
   AZURE_HSM = 'AZURE_HSM',
   NODE_ACCOUNT = 'NODE_ACCOUNT',
   PRIVATE_KEY = 'PRIVATE_KEY',
+  GCP_SECRET = 'GCP_SECRET',
 }
 
 export function isCorePair(pair: OracleCurrencyPair) {

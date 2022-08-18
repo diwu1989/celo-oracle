@@ -3,6 +3,7 @@ import { ReportTarget } from '@celo/contractkit/lib/wrappers/SortedOracles'
 import { ensureLeading0x, isValidPrivateKey, privateKeyToAddress } from '@celo/utils/lib/address'
 import { AwsHsmWallet } from '@celo/wallet-hsm-aws'
 import { AzureHSMWallet } from '@celo/wallet-hsm-azure'
+import { SecretManagerServiceClient } from '@google-cloud/secret-manager'
 import Logger from 'bunyan'
 import fs from 'fs'
 import { DataAggregator, DataAggregatorConfig } from './data_aggregator'
@@ -77,6 +78,10 @@ export interface OracleApplicationConfig {
    * The max backoff in ms between AzureHSMWallet init retries.
    */
   azureHsmInitMaxRetryBackoffMs?: number
+  /**
+   * The name of the GCP secret.
+   */
+  gcpSecretName?: string
   /**
    * A base instance of the logger that can be extended for a particular context
    */
@@ -174,6 +179,7 @@ export class OracleApplication {
       currencyPair,
       walletType,
       wsRpcProviderUrl,
+      gcpSecretName,
     } = this.config
     let kit: ContractKit
 
@@ -255,6 +261,19 @@ export class OracleApplication {
           kit.defaultAccount = account
           this.config.address = account
         }
+        break
+      case WalletType.GCP_SECRET:
+        requireVariables({
+          gcpSecretName
+        })
+        const secretServiceClient = new SecretManagerServiceClient()
+        const [version] = await secretServiceClient.accessSecretVersion({
+          name: gcpSecretName,
+        });
+        const privateKey = version.payload?.data?.toString()!
+        kit = newKit(httpRpcProviderUrl)
+        kit.addAccount(privateKey)
+        this.config.address = privateKeyToAddress(privateKey)
         break
       default:
         throw Error(`Invalid wallet type: ${walletType}`)
