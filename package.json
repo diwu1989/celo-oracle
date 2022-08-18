@@ -23,6 +23,7 @@
     "@celo/utils": "1.5.2",
     "@celo/wallet-hsm-aws": "1.5.2",
     "@celo/wallet-hsm-azure": "1.5.2",
+    "@google-cloud/secret-manager": "^4.0.0",
     "bignumber.js": "^8.1.1",
     "bunyan": "1.8.15",
     "express": "^4.17.1",
