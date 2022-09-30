@@ -1,3 +1,4 @@
+import axios from 'axios'
 import BigNumber from 'bignumber.js'
 import Web3 from 'web3'
 import { WebsocketProvider } from 'web3-core'
@@ -43,6 +44,11 @@ export interface BlockBasedReporterConfig extends BaseReporterConfig {
    * Defaults to reportExpirySeconds from on-chain.
    */
   targetMaxHeartbeatPeriodMs?: number
+
+  /**
+   * Healthcheck report url
+   */
+  healthcheck?: string,
 }
 
 /**
@@ -226,6 +232,9 @@ export class BlockBasedReporter extends BaseReporter {
     if (shouldReport) {
       const trigger = heartbeat ? ReportTrigger.HEARTBEAT : ReportTrigger.PRICE_CHANGE
       await this.report(price, trigger)
+      if (this.config.healthcheck) {
+        await axios.post(this.config.healthcheck, String(blockNumber));
+      }
     } else {
       this.logger.info(
         {

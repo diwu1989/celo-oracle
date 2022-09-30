@@ -70,6 +70,7 @@ export const blockBasedReporterConfigEnvVars: EnvVarMap<BlockBasedReporterConfig
   maxBlockTimestampAgeMs: EnvVar.MAX_BLOCK_TIMESTAMP_AGE_MS,
   minReportPriceChangeThreshold: EnvVar.MIN_REPORT_PRICE_CHANGE_THRESHOLD,
   targetMaxHeartbeatPeriodMs: EnvVar.TARGET_MAX_HEARTBEAT_PERIOD_MS,
+  healthcheck: EnvVar.HEALTHCHECK,
 }
 
 export function getComponentConfig<T>(defaultConfig: T, envVarMap: EnvVarMap<T>): T {
