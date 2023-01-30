@@ -5,11 +5,17 @@ import * as aggregators from './aggregator_functions'
 import { OracleApplicationConfig } from './app'
 import { ExchangeAdapter, ExchangeAdapterConfig } from './exchange_adapters/base'
 import { BinanceAdapter } from './exchange_adapters/binance'
+import { BinanceUSAdapter } from './exchange_adapters/binance_us'
+import { OKXAdapter } from './exchange_adapters/okx'
 import { BitsoAdapter } from './exchange_adapters/bitso'
 import { BittrexAdapter } from './exchange_adapters/bittrex'
 import { CoinbaseAdapter } from './exchange_adapters/coinbase'
 import { OKCoinAdapter } from './exchange_adapters/okcoin'
 import { NovaDaxAdapter } from './exchange_adapters/novadax'
+import { KrakenAdapter } from './exchange_adapters/kraken'
+import { KuCoinAdapter } from './exchange_adapters/kucoin'
+import { BitstampAdapter } from './exchange_adapters/bitstamp'
+import { MercadoAdapter } from './exchange_adapters/mercado'
 import { MetricCollector } from './metric_collector'
 import { PriceSource, WeightedPrice } from './price_source'
 import {
@@ -27,11 +33,14 @@ import {
   PromiseStatus,
   SettledPromise,
 } from './utils'
+import { GeminiAdapter } from './exchange_adapters/gemini'
 
 function adapterFromExchangeName(name: Exchange, config: ExchangeAdapterConfig): ExchangeAdapter {
   switch (name) {
     case Exchange.BINANCE:
       return new BinanceAdapter(config)
+    case Exchange.BINANCEUS:
+      return new BinanceUSAdapter(config)
     case Exchange.BITTREX:
       return new BittrexAdapter(config)
     case Exchange.COINBASE:
@@ -42,6 +51,18 @@ function adapterFromExchangeName(name: Exchange, config: ExchangeAdapterConfig):
       return new BitsoAdapter(config)
     case Exchange.NOVADAX:
       return new NovaDaxAdapter(config)
+    case Exchange.GEMINI:
+      return new GeminiAdapter(config)
+    case Exchange.KRAKEN:
+      return new KrakenAdapter(config)
+    case Exchange.KUCOIN:
+      return new KuCoinAdapter(config)
+    case Exchange.BITSTAMP:
+      return new BitstampAdapter(config)
+    case Exchange.MERCADO:
+      return new MercadoAdapter(config)
+    case Exchange.OKX:
+      return new OKXAdapter(config)
   }
 }
 
