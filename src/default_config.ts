@@ -28,7 +28,7 @@ export const defaultDataAggregatorConfig: DataAggregatorConfigSubset = {
   apiRequestTimeout: secondsToMs(5),
   baseLogger,
   maxSourceWeightShare: new BigNumber(1.0),
-  maxPercentageBidAskSpread: new BigNumber(0.8),
+  maxPercentageBidAskSpread: new BigNumber(0.1),
   maxPercentageDeviation: new BigNumber(0.3),
   minPriceSourceCount: 1,
   minAggregatedVolume: new BigNumber(0),
@@ -41,9 +41,9 @@ export const defaultBaseReporterConfig: BaseReporterConfigSubset = {
   circuitBreakerPriceChangeThresholdMin: new BigNumber(0.15), // 15%
   circuitBreakerPriceChangeThresholdTimeMultiplier: new BigNumber(0.0075),
   circuitBreakerDurationTimeMs: 20 * 60 * 1000, // 20 minutes.
-  gasPriceMultiplier: new BigNumber(5),
+  gasPriceMultiplier: new BigNumber(1.1),
   transactionRetryLimit: 3,
-  transactionRetryGasPriceMultiplier: new BigNumber(0.1),
+  transactionRetryGasPriceMultiplier: new BigNumber(0.11),
   unusedOracleAddresses: [],
   devMode: false,
 }
