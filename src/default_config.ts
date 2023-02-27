@@ -41,7 +41,7 @@ export const defaultBaseReporterConfig: BaseReporterConfigSubset = {
   circuitBreakerPriceChangeThresholdMin: new BigNumber(0.15), // 15%
   circuitBreakerPriceChangeThresholdTimeMultiplier: new BigNumber(0.0075),
   circuitBreakerDurationTimeMs: 20 * 60 * 1000, // 20 minutes.
-  gasPriceMultiplier: new BigNumber(1.1),
+  gasPriceMultiplier: new BigNumber(1.01),
   transactionRetryLimit: 3,
   transactionRetryGasPriceMultiplier: new BigNumber(0.11),
   unusedOracleAddresses: [],
