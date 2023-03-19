@@ -233,8 +233,9 @@ export class BlockBasedReporter extends BaseReporter {
       const trigger = heartbeat ? ReportTrigger.HEARTBEAT : ReportTrigger.PRICE_CHANGE
       await this.report(price, trigger)
       if (this.config.healthcheck) {
-        await axios.post(this.config.healthcheck, String(blockNumber));
+        await axios.post(this.config.healthcheck, String(blockNumber))
       }
+      await this.setOracleBalanceMetric()
     } else {
       this.logger.info(
         {
