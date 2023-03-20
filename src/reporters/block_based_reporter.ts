@@ -100,6 +100,8 @@ export class BlockBasedReporter extends BaseReporter {
 
   private _reportExpiryTimeMs: number | undefined
 
+  private _healthCheckTimer: NodeJS.Timer | undefined
+
   private blockHeaderSubscriptionErrorWrapper: ErrorWrapper
 
   private provider: WebsocketProvider
@@ -139,10 +141,28 @@ export class BlockBasedReporter extends BaseReporter {
     this.requireInitialized()
 
     this.setupProviderAndSubscriptions()
+
+    let lastObservedBlockNumber = this._highestObservedBlockNumber
+    this._healthCheckTimer = setInterval(() => {
+      if (this._highestObservedBlockNumber == lastObservedBlockNumber) {
+        onError(
+          new Error('WebsocketProvider last observe block is stale'),
+          this.blockHeaderSubscriptionErrorWrapper
+        )
+        process.exit(1)
+      }
+      lastObservedBlockNumber = this._highestObservedBlockNumber
+    }, 30 * 1000)
   }
 
   stop(): void {
     super.stop()
+
+    if (this._healthCheckTimer) {
+      clearInterval(this._healthCheckTimer)
+      this._healthCheckTimer = undefined
+    }
+
     this._blockHeaderSubscription
       ?.unsubscribe()
       .catch((error: Error) => onError(error, this.blockHeaderSubscriptionErrorWrapper))
